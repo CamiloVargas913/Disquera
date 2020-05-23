@@ -5,22 +5,95 @@
  */
 package udec.ucundi.edu.bean;
 
+import java.io.Serializable;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.RowEditEvent;
+import udec.ucundi.edu.model.Albun;
+import udec.ucundi.edu.model.Cancion;
+import udec.ucundi.edu.service.AlbunService;
 
 /**
  *
  * @author PROFESIONAL
  */
 @Named(value = "index")
-@RequestScoped
-public class Index {
+@SessionScoped
+public class Index implements Serializable {
 
-    /**
-     * Creates a new instance of Index
-     */
+    private List<Albun> albunes;
+    private Albun albun;
+
+    @Inject
+    private AlbunService service;
+
     public Index() {
-        
+
     }
-    
+
+    @PostConstruct
+    public void init() {
+        this.albunes = service.getAlbun();
+
+//        albunes.forEach((albune) -> {
+//            this.canciones = albune.getCanciones();
+//            System.out.println(albune.getArtista());
+//            canciones.forEach((cansion)-> {
+//                System.out.println(cansion.getNombre());
+//           
+//            });
+//        });
+    }
+
+    public void actualizar(RowEditEvent event) {
+        Cancion can = (Cancion) event.getObject();
+    }
+     public void eliminar(Cancion canciones) {
+//        this.service.eliminar(canciones);        
+    }
+
+    public List<Albun> getAlbunes() {
+        return albunes;
+    }
+
+    public void setAlbunes(List<Albun> albunes) {
+        this.albunes = albunes;
+    }
+
+    public Albun getAlbun() {
+        return albun;
+    }
+
+    public void setAlbun(Albun albun) {
+        this.albun = albun;
+    }
+
+    public AlbunService getService() {
+        return service;
+    }
+
+    public void setService(AlbunService service) {
+        this.service = service;
+    }
+
+    public void clearMultiViewState() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        String viewId = context.getViewRoot().getViewId();
+        PrimeFaces.current().multiViewState().clearAll(viewId, true, (clientId) -> {
+            showMessage(clientId);
+        });
+    }
+
+    private void showMessage(String clientId) {
+        FacesContext.getCurrentInstance()
+                .addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, clientId + " multiview state has been cleared out", null));
+    }
+
 }

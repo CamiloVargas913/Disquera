@@ -1,2 +1,5 @@
-udec\ucundi\edu\disquera\JAXRSConfiguration.class
-udec\ucundi\edu\disquera\resources\JavaEE8Resource.class
+udec\ucundi\edu\model\Usuario.class
+udec\ucundi\edu\bean\Index.class
+udec\ucundi\edu\model\Albun.class
+udec\ucundi\edu\service\AlbunService.class
+udec\ucundi\edu\model\Cancion.class
