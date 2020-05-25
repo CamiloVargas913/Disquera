@@ -68,10 +68,7 @@
                         <p:graphicImage url="assets/record.png" /> 
 
                         <p:outputPanel>
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputText value="Id:" />
-                                <h:outputText value="#{albun.id}" style="font-weight: bold"/>
-
+                            <h:panelGrid columns="2" cellpadding="5">   
                                 <h:outputText value="Nombre:" />
                                 <h:outputText value="#{albun.nombre}" style="font-weight: bold"/>
 
@@ -117,7 +114,7 @@
                                     <h:outputText value="#{data.formato}" /> 
                                 </p:column> 
                                 <p:column headerText="Agregar">
-                                    <p:commandButton value="Agregar a carrito" ajax="true" update="table" action="#{index.eliminar(data)}"/>
+                                    <p:commandButton value="Agregar a carrito" ajax="true" update="table" action="#{index.eliminar()}"/>
                                 </p:column>
                             </p:dataTable> 
                         </p:panelGrid>

@@ -5,25 +5,25 @@
  */
 package udec.ucundi.edu.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author user
  */
-public class Cancion {
+public class Cancion implements Serializable{
     private int id;
     private String nombre;
     private double duracion;
-    private String disco;
-    private String artista;
+    private String album;
     private String formato;
     private double precio;
 
-    public Cancion(int id, String nombre, double duracion, String disco, String artista, String formato, double precio) {
+    public Cancion(int id, String nombre, double duracion, String album, String formato, double precio) {
         this.id = id;
         this.nombre = nombre;
         this.duracion = duracion;
-        this.disco = disco;
-        this.artista = artista;
+        this.album = album;
         this.formato = formato;
         this.precio = precio;
     }
@@ -52,22 +52,14 @@ public class Cancion {
         this.duracion = duracion;
     }
 
-    public String getDisco() {
-        return disco;
+    public String getAlbum() {
+        return album;
     }
 
-    public void setDisco(String disco) {
-        this.disco = disco;
+    public void setAlbum(String album) {
+        this.album = album;
     }
-
-    public String getArtista() {
-        return artista;
-    }
-
-    public void setArtista(String artista) {
-        this.artista = artista;
-    }
-
+   
     public String getFormato() {
         return formato;
     }

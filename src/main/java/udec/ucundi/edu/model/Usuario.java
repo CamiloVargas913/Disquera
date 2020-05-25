@@ -5,15 +5,17 @@
  */
 package udec.ucundi.edu.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author PROFESIONAL
  */
-public class Usuario {
+public class Usuario implements Serializable{
     private String nombre;
     private String apellido;
-    private String telefono;
-    private String direccion;
+    private String nick;
+    private String clave;
 
     public String getNombre() {
         return nombre;
@@ -31,20 +33,21 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getNick() {
+        return nick;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getClave() {
+        return clave;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setClave(String clave) {
+        this.clave = clave;
     }
-    
+
+   
 }

@@ -15,9 +15,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
-import udec.ucundi.edu.model.Albun;
+import udec.ucundi.edu.model.Album;
 import udec.ucundi.edu.model.Cancion;
 import udec.ucundi.edu.service.AlbunService;
+import udec.ucundi.edu.service.DbService;
 
 /**
  *
@@ -27,11 +28,13 @@ import udec.ucundi.edu.service.AlbunService;
 @SessionScoped
 public class Index implements Serializable {
 
-    private List<Albun> albunes;
-    private Albun albun;
+    private List<Album> albunes;
+    private Album albun;
 
     @Inject
     private AlbunService service;
+    @Inject
+    private DbService serviceDb;
 
     public Index() {
 
@@ -54,23 +57,26 @@ public class Index implements Serializable {
     public void actualizar(RowEditEvent event) {
         Cancion can = (Cancion) event.getObject();
     }
-     public void eliminar(Cancion canciones) {
-//        this.service.eliminar(canciones);        
+
+    public void eliminar() {
+        serviceDb.llenar();
+        System.out.println("ok-----");
+        serviceDb.leer();
     }
 
-    public List<Albun> getAlbunes() {
+    public List<Album> getAlbunes() {
         return albunes;
     }
 
-    public void setAlbunes(List<Albun> albunes) {
+    public void setAlbunes(List<Album> albunes) {
         this.albunes = albunes;
     }
 
-    public Albun getAlbun() {
+    public Album getAlbun() {
         return albun;
     }
 
-    public void setAlbun(Albun albun) {
+    public void setAlbun(Album albun) {
         this.albun = albun;
     }
 

@@ -5,19 +5,20 @@
  */
 package udec.ucundi.edu.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author PROFESIONAL
  */
-public class Albun {
+public class Album implements Serializable {
     private int id;
     private String nombre;
     private String artista;
     private ArrayList<Cancion> canciones;
 
-    public Albun(int id, String nombre, String artista, ArrayList<Cancion> canciones) {
+    public Album(int id, String nombre, String artista, ArrayList<Cancion> canciones) {
         this.id = id;
         this.nombre = nombre;
         this.artista = artista;
