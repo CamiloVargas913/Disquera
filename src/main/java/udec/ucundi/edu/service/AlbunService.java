@@ -10,9 +10,6 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import org.primefaces.PrimeFaces;
 import udec.ucundi.edu.model.Album;
 import udec.ucundi.edu.model.Cancion;
 import udec.ucundi.edu.model.Usuario;
@@ -29,6 +26,7 @@ public class AlbunService implements Serializable {
     private ArrayList<Cancion> canciones;
     private ArrayList<Usuario> usuario;
     private Usuario user;
+    private Album Album;
 
     public AlbunService() {
         this.Albun = new ArrayList<>();

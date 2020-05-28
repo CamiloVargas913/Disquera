@@ -90,7 +90,7 @@
                                         <h:outputText value="#{data.formato}" /> 
                                     </p:column> 
                                     <p:column headerText="Agregar">
-                                        <p:commandButton value="Agregar Cancion" ajax="true" update="table" action="#{index.AgregarCancion(data)}" icon="pi pi-shopping-cart" />
+                                        <p:commandButton value="Agregar Cancion" ajax="true" update="table,form" action="#{index.AgregarCancion(data)}" icon="pi pi-shopping-cart" />
                                     </p:column>
                                 </p:dataTable> 
                             </p:panelGrid>

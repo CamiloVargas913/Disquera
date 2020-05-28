@@ -44,40 +44,48 @@ public class Index implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.serviceDb.llenar();
         this.serviceDb.leer();
         this.albunes = serviceDb.getAlbum();
-        
-        
+
     }
 
     public void actualizar(RowEditEvent event) {
         Cancion can = (Cancion) event.getObject();
     }
 
-    public void AgregarAlbum(Album album ) {
+    public void AgregarAlbum(Album album) {
         this.carrito = new Carrito();
-        this.carrito.setNombre("Album: "+album.getNombre());
+        this.carrito.setNombre("Album: " + album.getNombre());
         this.carrito.setPrecio(album.getPrecio());
         this.carrito.setTipo("album");
         this.carrito.setId(album.getId());
         this.carrito.setAlbum(album);
-        this.serviceCarrito.Agregar(this.carrito);  
-        
+        this.serviceCarrito.Agregar(this.carrito);
+
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Agregado Correctamente", "Album: "+album.getNombre()) );
+        if (this.serviceCarrito.Agregar(this.carrito)) {
+            context.addMessage(null, new FacesMessage("No se puede agregar", "Album: " + album.getNombre()));
+        } else {
+            context.addMessage(null, new FacesMessage("Agregado Correctamente", "Album: " + album.getNombre()));
+        }
     }
-    public void AgregarCancion(Cancion cancion ) {
+
+    public void AgregarCancion(Cancion cancion) {
         this.carrito = new Carrito();
-        this.carrito.setNombre("Cancion: "+cancion.getNombre());
+        this.carrito.setNombre("Cancion: " + cancion.getNombre());
         this.carrito.setPrecio(cancion.getPrecio());
         this.carrito.setTipo("cancion");
         this.carrito.setId(cancion.getId());
         this.carrito.setCancion(cancion);
-        this.serviceCarrito.Agregar(this.carrito);
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (this.serviceCarrito.Agregar(this.carrito)) {
+            context.addMessage(null, new FacesMessage("No se puede agregar", "Cancion: " + cancion.getNombre()));
+        } else {
+            context.addMessage(null, new FacesMessage("Agregado Correctamente", "Cancion: " + cancion.getNombre()));
+        }
     }
-    
-    public void EliminarAgregados(Carrito carrito ){
+
+    public void EliminarAgregados(Carrito carrito) {
         this.serviceCarrito.Eliminar(carrito);
     }
 

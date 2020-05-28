@@ -36,7 +36,7 @@ public class CarritoService implements Serializable {
         this.bandera = true;
     }
 
-    public void Agregar(Carrito carr) {
+    public boolean Agregar(Carrito carr) {
         if (this.carrito.size() > 0) {
             for (Carrito carrito1 : carrito) {
                 if (carrito1.getTipo().equals(carr.getTipo()) && carrito1.getId() == carr.getId()) {
@@ -75,13 +75,9 @@ public class CarritoService implements Serializable {
             }
         } else {
             this.carrito.add(carr);
+            this.bandera=false;
         }
-
-        System.out.println("----------------------------------------------------------");
-        for (Carrito carrito1 : this.carrito) {
-            System.out.println(carrito1.getTipo() + "" + carrito1.getId());
-        }
-
+        return this.bandera;
     }
 
     public boolean validar(Album album, Carrito carr) {
@@ -97,7 +93,6 @@ public class CarritoService implements Serializable {
                 validacion = false;
             }
         }
-        System.out.println(validacion);
         return validacion;
     }
 
