@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <style type="text/css">
+            .backgroun-body{
+                background: #3F3F3F;
+                margin: 0;
+                padding: 0;                
+            }
+            .ui-dataview-list .ui-dataview-row {
+                border-bottom: 1px solid #A8A8A8;
+                padding: 25px 10px;
+                /* with the exported variables from Nova and Luna Themes*/
+                border-bottom-color: var(--input-border-color, #A8A8A8);
+            }
+
+            .logo {
+                width: 5%;
+            }
+            .detail {
+                width: 85%;
+                padding-left: 25px;
+            }
+        </style>
+    </h:head>
+
+    <h:body class="backgroun-body">
+        <h:form id="login">
+            <div class="ui-g">
+                <div class="ui-g-4"></div>
+                <div class="ui-g-4" style="margin-left: auto; margin-right: auto; text-align: center; margin-top: 15%"> 
+                    <h3 style= "color:#ffffff; ">Iniciar Sesión</h3>
+                    <div class="ui-fluid" style="color:#ffffff; ">
+                        <div class="p-field p-grid" style="padding: 0 10% 5% 10%;">
+                            <div class="p-col-12 p-md-10">
+                                <p:inputText id="firstname4" placeholder="Usuario" value="#{login.usuario.nick}"/>
+                            </div>
+                        </div>
+                        <div class="p-field p-grid" style="padding: 0 10% 5% 10%;">
+                            <div class="p-col-12 p-md-10">
+                                <p:inputText id="lastname4"  placeholder="Contraseña" type="password" value="#{login.usuario.clave}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <p:commandButton value="Ingresar" ajax="true" update="login" action="#{login.ingresar()}"/>
+                </div>
+                <div class="ui-g-4"></div>
+            </div>
+
+        </h:form>
+    </h:body>
+</html>
+

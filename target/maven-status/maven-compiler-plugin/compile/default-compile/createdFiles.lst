@@ -4,4 +4,6 @@ udec\ucundi\edu\service\AlbunService.class
 udec\ucundi\edu\model\Album.class
 udec\ucundi\edu\model\Db.class
 udec\ucundi\edu\model\Usuario.class
+udec\ucundi\edu\service\CarritoService.class
 udec\ucundi\edu\model\Cancion.class
+udec\ucundi\edu\model\Carrito.class

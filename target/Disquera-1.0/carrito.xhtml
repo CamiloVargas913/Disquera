@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <ui:composition template="./master.xhtml">
+            <ui:define name="content">
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true" sticky="true" />   
+
+                    <h1 style="margin-top:2; color: #FFFFFF; text-align: center; background: #1B9044; padding: 5px; margin:3px; width: 80%; margin-left: auto; margin-right: auto" >Elementos Agregados </h1>
+                    <p:dataTable id="table" value="#{index.serviceCarrito.carrito}" var ="data" reflow="true" rows="5" paginator="true" scrollable="true" scrollHeight="250" style="padding: 5px; margin:3px; width: 80%; margin-left: auto; margin-right: auto; text-align: center">
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{data.nombre}" /> 
+                        </p:column>
+                        <p:column headerText="Precio">
+                            <h:outputText value="#{data.precio}" /> 
+                        </p:column>  
+                        <p:column headerText="Eliminar">
+                            <p:commandButton value="Eliminar Compra" ajax="true" update="table" action="#{index.EliminarAgregados(data)}" icon="pi pi-times" />
+                        </p:column>
+                    </p:dataTable> 
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+

@@ -3,130 +3,105 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <style type="text/css">
-            .backgroun-body{
-                background: #3F3F3F;
-                margin: 0;
-                padding: 0;                
-            }
-            .ui-dataview-list .ui-dataview-row {
-                border-bottom: 1px solid #A8A8A8;
-                padding: 25px 10px;
-                /* with the exported variables from Nova and Luna Themes*/
-                border-bottom-color: var(--input-border-color, #A8A8A8);
-            }
 
-            .logo {
-                width: 5%;
-            }
-            .detail {
-                width: 85%;
-                padding-left: 25px;
-            }
-        </style>
-    </h:head>
 
-    <h:body class="backgroun-body">
-        <h:form id="form">
-            <p:growl id="messages"/>
-            <p:megaMenu orientation="horizontal" style="height: 60px; text-align: center;">  
-                <p:menuitem value="Disquera DC" url="#" icon="pi pi-spin pi-spinner" style="font-size: 25px"/>
+    <body>
 
-                <p:submenu label="Carrito" icon="pi pi-file">
-                    <p:column>
-                        <h:panelGrid columns="2" cellpadding="10">
-                            <p:graphicImage url="assets/record.png" />
-                        </h:panelGrid>
-                    </p:column>
-                </p:submenu>
+        <ui:composition template="./master.xhtml">
+            <ui:define name="content">
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true" sticky="true" />                
 
-            </p:megaMenu>    
+                    <h1 style="margin-top:2; color: #FFFFFF; text-align: center; background: #1B9044; padding: 5px; margin:3px; width: 80%; margin-left: auto; margin-right: auto" >Albunes Disponibles</h1>
 
-            <h1 style="margin-top:2; color: #FFFFFF; text-align: center; background: #1B9044; padding: 5px; margin:3px; width: 80%; margin-left: auto; margin-right: auto" >Albunes Disponibles</h1>
+                    <p:dataView var="albun" value="#{index.albunes}" style=" width: 80%; margin-left: auto; margin-right: auto "
+                                gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+                        <p:dataViewGridItem>
+                            <p:panel header="#{albun.nombre}" style="text-align:center">
+                                <h:panelGrid columns="1" style="width:100%">
+                                    <p:graphicImage url="assets/record.png"/> 
 
-            <p:dataView var="albun" value="#{index.albunes}" style=" width: 80%; margin-left: auto; margin-right: auto "
-                        gridIcon="pi pi-th-large" listIcon="pi pi-bars">
-                <p:dataViewGridItem>
-                    <p:panel header="#{albun.nombre}" style="text-align:center">
-                        <h:panelGrid columns="1" style="width:100%">
-                            <p:graphicImage url="assets/record.png"/> 
+                                    <h:outputText value="Artista: #{albun.artista}" />
+                                    <h:outputText value="Precio: #{albun.precio}" />
 
-                            <h:outputText value="#{albun.artista}" />
+                                    <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                                        <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
+                                        <f:setPropertyActionListener value="#{albun}" target="#{index.albun}" />
+                                    </p:commandLink>
+                                    <p:commandButton value="Agregar Album" ajax="true" update="form" action="#{index.AgregarAlbum(albun)}" icon="pi pi-shopping-cart"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:dataViewGridItem>
 
-                            <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
-                                <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
-                                <f:setPropertyActionListener value="#{albun}" target="#{index.albun}" />
-                            </p:commandLink>
-                        </h:panelGrid>
-                    </p:panel>
-                </p:dataViewGridItem>
+                        <p:dataViewListItem>
+                            <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
+                                <p:graphicImage url="assets/record.png" /> 
 
-                <p:dataViewListItem>
-                    <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
-                        <p:graphicImage url="assets/record.png" /> 
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">   
+                                        <h:outputText value="Nombre:" />
+                                        <h:outputText value="#{albun.nombre}" style="font-weight: bold"/>
 
-                        <p:outputPanel>
-                            <h:panelGrid columns="2" cellpadding="5">   
-                                <h:outputText value="Nombre:" />
-                                <h:outputText value="#{albun.nombre}" style="font-weight: bold"/>
+                                        <h:outputText value="Artista" />
+                                        <h:outputText value="#{albun.artista}" style="font-weight: bold"/>
+                                        <h:outputText value="Precio" />
+                                        <h:outputText value="#{albun.precio}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                    <p:commandButton value="Agregar Album" ajax="true" update="form" action="#{index.AgregarAlbum(albun)}" icon="pi pi-shopping-cart"/>
+                                </p:outputPanel>
 
-                                <h:outputText value="Artista" />
-                                <h:outputText value="#{albun.artista}" style="font-weight: bold"/>
+                                <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                                    <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
+                                    <f:setPropertyActionListener value="#{albun}" target="#{index.albun}" />
+                                </p:commandLink>
+
                             </h:panelGrid>
+                        </p:dataViewListItem>
+                    </p:dataView>
+
+                    <p:dialog header="Albun: #{index.albun.nombre}" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="true" width="80%" >
+                        <p:outputPanel id="carDetail" style="text-align:center;" >
+                            <p:panelGrid  columns="2" rendered="#{not empty index.albun}" columnClasses="label,value" style="width: 60%; margin-left: auto; margin-right: auto">
+                                <f:facet name="header">
+                                    <p:graphicImage url="assets/record.png"/> 
+                                </f:facet>
+
+                                <h:outputText value="Artista" style="font-weight: bold"/>
+                                <h:outputText value="#{index.albun.artista}"/>
+                                <h:outputText value="Precio" style="font-weight: bold"/>
+                                <h:outputText value="#{index.albun.precio}" />
+                            </p:panelGrid>
+
+                            <p:panelGrid columns="1" rendered="#{not empty index.albun}" style="width: 60%; margin-left: auto; margin-right: auto">
+                                <h:outputText value="Canciones" style="font-weight: bold" />
+                                <p:dataTable id="table" value="#{index.albun.canciones}" var ="data" reflow="true" rows="5" paginator="true" scrollable="true" scrollHeight="250">
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{data.nombre}" /> 
+                                    </p:column>
+                                    <p:column headerText="Duración">
+                                        <h:outputText value="#{data.duracion}" /> 
+                                    </p:column> 
+                                    <p:column headerText="Precio">
+                                        <h:outputText value="#{data.precio}" /> 
+                                    </p:column>  
+                                    <p:column headerText="Formato">
+                                        <h:outputText value="#{data.formato}" /> 
+                                    </p:column> 
+                                    <p:column headerText="Agregar">
+                                        <p:commandButton value="Agregar Cancion" ajax="true" update="table" action="#{index.AgregarCancion(data)}" icon="pi pi-shopping-cart" />
+                                    </p:column>
+                                </p:dataTable> 
+                            </p:panelGrid>
+                            <p:commandButton value="Agregar Album" ajax="true" update="form" action="#{index.AgregarAlbum(index.albun)}" icon="pi pi-shopping-cart"/>
                         </p:outputPanel>
+                    </p:dialog>
 
-                        <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
-                            <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
-                            <f:setPropertyActionListener value="#{albun}" target="#{index.albun}" />
-                        </p:commandLink>
-                    </h:panelGrid>
-                </p:dataViewListItem>
-            </p:dataView>
+                </h:form>
+            </ui:define>
 
-            <p:dialog header="Albun: #{index.albun.nombre}" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="true" width="80%" >
-                <p:outputPanel id="carDetail" style="text-align:center;" >
-
-                    <p:panelGrid  columns="2" rendered="#{not empty index.albun}" columnClasses="label,value" style="width: 60%; margin-left: auto; margin-right: auto">
-                        <f:facet name="header">
-                            <p:graphicImage url="assets/record.png"/> 
-                        </f:facet>
-
-                        <h:outputText value="Artista" />
-                        <h:outputText value="#{index.albun.artista}"/>
-                    </p:panelGrid>
-                   
-                        <p:panelGrid columns="1" rendered="#{not empty index.albun}" style="width: 60%; margin-left: auto; margin-right: auto">
-                            <h:outputText value="Canciones" />
-
-                            <p:dataTable id="table" value="#{index.albun.canciones}" var ="data" reflow="true" rows="5" paginator="true" scrollable="true" scrollHeight="250">
-                                <p:column headerText="Nombre">
-                                    <h:outputText value="#{data.nombre}" /> 
-                                </p:column>
-                                <p:column headerText="Duración">
-                                    <h:outputText value="#{data.duracion}" /> 
-                                </p:column> 
-                                <p:column headerText="Precio">
-                                    <h:outputText value="#{data.precio}" /> 
-                                </p:column>  
-                                <p:column headerText="Formato">
-                                    <h:outputText value="#{data.formato}" /> 
-                                </p:column> 
-                                <p:column headerText="Agregar">
-                                    <p:commandButton value="Agregar a carrito" ajax="true" update="table" action="#{index.eliminar()}"/>
-                                </p:column>
-                            </p:dataTable> 
-                        </p:panelGrid>
-                  
-
-                </p:outputPanel>
-            </p:dialog>
-
-        </h:form>
-
-
-
-    </h:body>
+        </ui:composition>
+    </body>
 </html>
 

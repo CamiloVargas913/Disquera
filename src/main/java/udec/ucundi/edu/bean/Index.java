@@ -6,7 +6,7 @@
 package udec.ucundi.edu.bean;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -17,7 +17,8 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
 import udec.ucundi.edu.model.Album;
 import udec.ucundi.edu.model.Cancion;
-import udec.ucundi.edu.service.AlbunService;
+import udec.ucundi.edu.model.Carrito;
+import udec.ucundi.edu.service.CarritoService;
 import udec.ucundi.edu.service.DbService;
 
 /**
@@ -28,13 +29,14 @@ import udec.ucundi.edu.service.DbService;
 @SessionScoped
 public class Index implements Serializable {
 
-    private List<Album> albunes;
+    private ArrayList<Album> albunes;
     private Album albun;
+    private Carrito carrito;
 
     @Inject
-    private AlbunService service;
-    @Inject
     private DbService serviceDb;
+    @Inject
+    private CarritoService serviceCarrito;
 
     public Index() {
 
@@ -42,33 +44,56 @@ public class Index implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.albunes = service.getAlbun();
-
-//        albunes.forEach((albune) -> {
-//            this.canciones = albune.getCanciones();
-//            System.out.println(albune.getArtista());
-//            canciones.forEach((cansion)-> {
-//                System.out.println(cansion.getNombre());
-//           
-//            });
-//        });
+        this.serviceDb.llenar();
+        this.serviceDb.leer();
+        this.albunes = serviceDb.getAlbum();
+        
+        
     }
 
     public void actualizar(RowEditEvent event) {
         Cancion can = (Cancion) event.getObject();
     }
 
-    public void eliminar() {
-        serviceDb.llenar();
-        System.out.println("ok-----");
-        serviceDb.leer();
+    public void AgregarAlbum(Album album ) {
+        this.carrito = new Carrito();
+        this.carrito.setNombre("Album: "+album.getNombre());
+        this.carrito.setPrecio(album.getPrecio());
+        this.carrito.setTipo("album");
+        this.carrito.setId(album.getId());
+        this.carrito.setAlbum(album);
+        this.serviceCarrito.Agregar(this.carrito);  
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Agregado Correctamente", "Album: "+album.getNombre()) );
+    }
+    public void AgregarCancion(Cancion cancion ) {
+        this.carrito = new Carrito();
+        this.carrito.setNombre("Cancion: "+cancion.getNombre());
+        this.carrito.setPrecio(cancion.getPrecio());
+        this.carrito.setTipo("cancion");
+        this.carrito.setId(cancion.getId());
+        this.carrito.setCancion(cancion);
+        this.serviceCarrito.Agregar(this.carrito);
+    }
+    
+    public void EliminarAgregados(Carrito carrito ){
+        this.serviceCarrito.Eliminar(carrito);
     }
 
-    public List<Album> getAlbunes() {
+    public CarritoService getServiceCarrito() {
+        return serviceCarrito;
+    }
+
+    public void setServiceCarrito(CarritoService serviceCarrito) {
+        this.serviceCarrito = serviceCarrito;
+    }
+
+    public ArrayList<Album> getAlbunes() {
         return albunes;
     }
 
-    public void setAlbunes(List<Album> albunes) {
+    public void setAlbunes(ArrayList<Album> albunes) {
         this.albunes = albunes;
     }
 
@@ -78,28 +103,6 @@ public class Index implements Serializable {
 
     public void setAlbun(Album albun) {
         this.albun = albun;
-    }
-
-    public AlbunService getService() {
-        return service;
-    }
-
-    public void setService(AlbunService service) {
-        this.service = service;
-    }
-
-    public void clearMultiViewState() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        String viewId = context.getViewRoot().getViewId();
-        PrimeFaces.current().multiViewState().clearAll(viewId, true, (clientId) -> {
-            showMessage(clientId);
-        });
-    }
-
-    private void showMessage(String clientId) {
-        FacesContext.getCurrentInstance()
-                .addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, clientId + " multiview state has been cleared out", null));
     }
 
 }

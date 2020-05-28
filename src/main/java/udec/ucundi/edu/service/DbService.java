@@ -54,7 +54,7 @@ public class DbService implements Serializable {
     }
 
     public void llenar() {
-        this.ListaDb = new Db(service.getCanciones(), usuario, service.getAlbun()); 
+        this.ListaDb = new Db(service.getCanciones(), service.getUsuario(), service.getAlbun()); 
         FileOutputStream fos;
         try {
             fos = new FileOutputStream("bd.txt");
@@ -81,12 +81,32 @@ public class DbService implements Serializable {
             Logger.getLogger(DbService.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println("canciones");
-        for (Album cancione : this.album) {
-            System.out.println(cancione.getArtista());
-        }
-
-
     }
+
+    public ArrayList<Cancion> getCanciones() {
+        return canciones;
+    }
+
+    public void setCanciones(ArrayList<Cancion> canciones) {
+        this.canciones = canciones;
+    }
+
+    public ArrayList<Usuario> getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(ArrayList<Usuario> usuario) {
+        this.usuario = usuario;
+    }
+
+    public ArrayList<Album> getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(ArrayList<Album> album) {
+        this.album = album;
+    }
+    
+    
 
 }
