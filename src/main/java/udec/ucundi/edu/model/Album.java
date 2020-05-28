@@ -16,16 +16,20 @@ public class Album implements Serializable {
     private int id;
     private String nombre;
     private String artista;
-    private ArrayList<Cancion> canciones;
     private double precio;
+    private int añoLanzamiento;
+    private ArrayList<Cancion> canciones;
 
-    public Album(int id, String nombre, String artista,double precio, ArrayList<Cancion> canciones) {
+    public Album(int id, String nombre, String artista, double precio, int añoLanzamiento, ArrayList<Cancion> canciones) {
         this.id = id;
         this.nombre = nombre;
         this.artista = artista;
         this.precio = precio;
+        this.añoLanzamiento = añoLanzamiento;
         this.canciones = canciones;
-    }
+    }   
+
+   
 
     public int getId() {
         return id;
@@ -66,6 +70,14 @@ public class Album implements Serializable {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public int getAñoLanzamiento() {
+        return añoLanzamiento;
+    }
+
+    public void setAñoLanzamiento(int añoLanzamiento) {
+        this.añoLanzamiento = añoLanzamiento;
     }
 
     

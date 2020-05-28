@@ -11,22 +11,25 @@ import java.io.Serializable;
  *
  * @author user
  */
-public class Cancion implements Serializable{
+public class Cancion implements Serializable {
+
     private int id;
     private String nombre;
     private double duracion;
-    private String album;
     private String formato;
     private double precio;
+    private String album;
 
-    public Cancion(int id, String nombre, double duracion, String album, String formato, double precio) {
+    public Cancion(int id, String nombre, double duracion, String formato, double precio, String album) {
         this.id = id;
         this.nombre = nombre;
         this.duracion = duracion;
-        this.album = album;
         this.formato = formato;
         this.precio = precio;
+        this.album = album;
     }
+
+   
 
     public int getId() {
         return id;
@@ -59,7 +62,7 @@ public class Cancion implements Serializable{
     public void setAlbum(String album) {
         this.album = album;
     }
-   
+
     public String getFormato() {
         return formato;
     }
@@ -75,5 +78,5 @@ public class Cancion implements Serializable{
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
+
 }

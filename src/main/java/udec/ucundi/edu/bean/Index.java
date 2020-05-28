@@ -44,9 +44,9 @@ public class Index implements Serializable {
 
     @PostConstruct
     public void init() {
+        this.serviceDb.llenar();
         this.serviceDb.leer();
         this.albunes = serviceDb.getAlbum();
-
     }
 
     public void actualizar(RowEditEvent event) {

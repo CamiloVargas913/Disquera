@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./masterAdmin.xhtml">
+
+            <ui:define name="content">
+                <h:form id="form">
+                    <br></br>
+                    <p:growl id="msgs" showDetail="true"/>
+                    <p:panel id="basic" header="Crear canción" style=" width: 80%; margin-left: auto; margin-right: auto">
+                        <div class="ui-g">
+                            <div class="ui-g-7">
+                                <h:panelGrid id="gridAlbum" columns="3" style="width: 80%; margin-left: auto; margin-right: auto">
+                                    <p:outputLabel value="Nombre: " for="itNombre"/>
+                                    <p:inputText id="itNombre" value="#{crearCancion.nombre}" required="true" label="Nombre" maxlength="30"/>
+                                    <p:message for="itNombre"  style="text-align: center"/>
+                                    <p:outputLabel  value="Formato: " for="somFormato"/>
+                                    <h:selectOneMenu id="somFormato" style="width:34%" value="#{crearCancion.formato}">
+                                        <f:selectItem itemValue ="MP3" itemLabel ="MP3" />
+                                        <f:selectItem itemValue ="WAV" itemLabel ="WAV" />
+                                        <f:selectItem itemValue ="WMA" itemLabel ="WMA" />                            
+                                        <f:selectItem itemValue ="OGG" itemLabel ="OGG" />  
+                                    </h:selectOneMenu>  
+                                    <p:message for="somFormato" />
+                                    <p:outputLabel value="Precio: " for="itPrecio"/>
+                                    <p:inputText id="itPrecio" value="#{crearCancion.precio}" required="true" >
+                                        <f:convertNumber type="currency" currencySymbol="$" />
+                                        <f:validateDoubleRange minimum="100" maximum="3000" />
+                                    </p:inputText>
+                                    <p:message for="itPrecio" />
+                                    <p:outputLabel value="Duración " for="itDuracion"/>
+                                    <p:inputText id="itDuracion" type="number" value="#{crearCancion.duracion}" required="true">
+                                        <f:validateDoubleRange minimum="1" maximum="10" />
+                                    </p:inputText>
+                                    <p:message for="itDuracion" />
+                                    <div align="right">
+                                        <p:commandButton value="Crear canción" update="form,table" validateClient="true" action="#{crearCancion.agregarCancion()}"/>
+                                    </div>
+                                </h:panelGrid>
+                            </div>
+                            <div class="ui-g-5">
+
+                            </div>
+                        </div>
+                    </p:panel>
+                    <br></br>
+                </h:form>
+                <h:form id="table">
+                    <p:panel id="agregarCan" header="Canciones registradas" style=" width: 90%; margin-left: auto; margin-right: auto">
+
+                        <p:dataTable id="tabla" value="#{crearCancion.cancionService.canciones}" var="cancion" editable="true" style=" width: 90%;margin-left: auto; margin-right: auto "
+                                     paginator="true"         
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15,100"
+                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                     emptyMessage="Sin resultados">
+                            <f:facet  name ="header">
+                                Canciones registrados.
+                            </f:facet>
+                            <p:ajax event="rowEdit" listener="#{crearCancion.onRowEdit(event)}" update=":form:msgs" />
+                            <p:ajax event="rowEditCancel" listener="#{crearCancion.onRowCancel(event)}" update=":form:msgs" />
+
+                            <p:column  filterBy="#{cancion.nombre}" headerText="Nombre" filterMatchMode="contains" sortBy="#{cancion.nombre}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{cancion.nombre}" /></f:facet>
+                                    <f:facet name="input"><p:inputText type="text" value="#{cancion.nombre}" style="width:100%" required="true"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Duración" >
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{cancion.duracion}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText id="itDuracion" type="number" value="#{cancion.duracion}" required="true">
+                                            <f:validateDoubleRange minimum="1" maximum="10" />
+                                        </p:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column filterBy="#{cancion.formato}" headerText="Formato" filterMatchMode="contains" sortBy="#{cancion.formato}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{cancion.formato}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu value="#{cancion.formato}" style="width:100%">
+                                            <f:selectItem itemValue ="MP3" itemLabel ="MP3" />
+                                            <f:selectItem itemValue ="WAV" itemLabel ="WAV" />
+                                            <f:selectItem itemValue ="WMA" itemLabel ="WMA" />                            
+                                            <f:selectItem itemValue ="OGG" itemLabel ="OGG" /> 
+                                        </p:selectOneMenu>  
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column filterBy="#{cancion.precio}" headerText="Precio" filterMatchMode="contains" sortBy="#{cancion.precio}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{cancion.precio}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText id="itPrecio" value="#{cancion.precio}" required="true" >
+                                            <f:convertNumber type="currency" currencySymbol="$" />
+                                            <f:validateDoubleRange minimum="100" maximum="3000" />
+                                        </p:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Editar">
+                                <p:rowEditor />
+                            </p:column>
+                            <p:column headerText="Eliminar">
+                                <p:commandButton value="Eliminar" ajax="true" update="table" action="#{crearCancion.eliminarCancion(cancion)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

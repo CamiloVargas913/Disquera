@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./masterAdmin.xhtml">
+
+            <ui:define name="content">
+                <h:form id="formRegistrar">
+                    <br></br>
+                    <p:panel id="basic" header="Registrar album" style=" width: 70%; margin-left: auto; margin-right: auto;" >
+                        <p:growl id="msgs" showDetail="true"/>
+                        <div class="ui-g">
+                            <div class="ui-g-9">
+                                <h:panelGrid id="gridAlbum" columns="3">
+                                    <p:outputLabel value="Nombre: " for="itNombre"/>
+                                    <p:inputText id="itNombre" value="#{crearAlbum.nombre}" required="true" label="Nombre" maxlength="30"/>
+                                    <p:message for="itNombre"  style="text-align: center"/>
+                                    <p:outputLabel  value="Artista: " for="itArtista"/>
+                                    <p:inputText id="itArtista" value="#{crearAlbum.artista}" required="true"/>
+                                    <p:message for="itArtista" />
+                                    <p:outputLabel value="Año de lanzamiento: " for="itAño"/>
+                                    <p:inputText id="itAño" type="number" value="#{crearAlbum.añoLanzamiento}" required="true">
+                                        <f:validateDoubleRange minimum="1700" maximum="2020" />
+                                    </p:inputText>
+                                    <p:message for="itAño" />
+                                    <div align="right">
+                                        <p:commandButton value="Crear album" ajax="true" update="basic"  validateClient="true" action="#{crearAlbum.crearAlbum()}"/>
+                                    </div>
+                                </h:panelGrid>
+                            </div>
+                            <div class="ui-g-3">
+                                <h:panelGrid id="gridCan" columns="1">
+                                    <p:dataList value="#{crearAlbum.cancionesAgregadas}" var="can" type="ordered">
+                                        <f:facet name="header">
+                                            Canciones agregadas 
+                                        </f:facet>
+                                        #{can.nombre}, #{can.duracion}
+                                    </p:dataList>
+                                </h:panelGrid>
+                            </div>
+                        </div>
+                    </p:panel>
+                    <br></br>
+                </h:form>
+                <h:form id="formCancion">
+                    <p:dataTable id="tablaCancion" value="#{crearAlbum.cancionService.canciones}" var="data" editable="true" style=" width: 90%;margin-left: auto; margin-right: auto "
+                                 paginator="true"         
+                                 rows="5"
+                                 rowsPerPageTemplate="5,10,15,100"
+                                 paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                 emptyMessage="Sin resultados">
+                        <f:facet  name ="header">
+                            Canciones registrados.
+                        </f:facet>
+                        <p:column filterBy="#{data.nombre}" headerText="Nombre" filterMatchMode="contains" sortBy="#{data.nombre}" >
+                            <h:outputText value="#{data.nombre}" />
+                        </p:column>
+                        <p:column headerText="Duración" >
+                            <h:outputText value="#{data.duracion}" />
+                        </p:column>
+                        <p:column filterBy="#{data.formato}" headerText="Formato" filterMatchMode="contains" sortBy="#{data.formato}">
+                            <h:outputText value="#{data.formato}" />
+                        </p:column>
+                        <p:column filterBy="#{data.precio}" headerText="Precio" filterMatchMode="contains" sortBy="#{data.precio}">
+                            <h:outputText value="#{data.precio}" />
+                        </p:column>
+                        <p:column headerText="Agregar">
+                            <p:commandButton value="Agregar canción" ajax="false" update="formCancion" action="#{crearAlbum.agregarCancion(data)}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

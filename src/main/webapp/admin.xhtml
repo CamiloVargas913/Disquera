@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./masterAdmin.xhtml">
+            <ui:define name="content">
+                <h:form id="form">  
+                    <p:growl id="msgs" showDetail="true"/>
+                    <p:dataTable id="album" value="#{admin.albumes}" var="album" editable="true" style=" width: 85%;margin-left: auto; margin-right: auto "
+                                 paginator="true"         
+                                 rows="5"
+                                 rowsPerPageTemplate="5,10,15,100"
+                                 paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
+                        <f:facet  name ="header">
+                            Albumes registrados.
+                            <div align="right">
+                                <p:commandButton id="crearAlbum" value="Crear album" action="#{admin.redireccionCrearAlbum()}"/>
+                            </div>
+                        </f:facet>
+                        <p:ajax event="rowEdit" listener="#{admin.onRowEdit(event)}" update=":form:msgs" />
+                        <p:ajax event="rowEditCancel" listener="#{admin.onRowCancel(event)}" update=":form:msgs" />
+                        <p:column headerText="Nombre" filterBy="#{album.nombre}" filterMatchMode="contains" sortBy="#{album.nombre}" >
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{album.nombre}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{album.nombre}" style="width:100%" required="true"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Artista" filterBy="#{album.artista}" filterMatchMode="contains" sortBy="#{album.artista}">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{album.artista}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{album.artista}" style="width:100%" required="true"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Año de lanzamiento" filterBy="#{album.añoLanzamiento}" filterMatchMode="contains" sortBy="#{album.añoLanzamiento}">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{album.añoLanzamiento}" /></f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="itAño" type="number" value="#{album.añoLanzamiento}" required="true">
+                                        <f:validateDoubleRange minimum="1700" maximum="2020" />
+                                    </p:inputText>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Precio" filterBy="#{album.precio}" filterMatchMode="contains" sortBy="#{album.precio}" >
+                            <h:outputText value="#{album.precio}" />
+                        </p:column>
+                        <p:column headerText="Canciones" >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <p:selectManyMenu value="#{album.canciones}" style="width:100%">
+                                        <f:selectItems value ="#{album.canciones}" var="can" itemLabel="#{can.nombre}" itemValue="#{can}" />
+                                    </p:selectManyMenu>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectManyMenu value="#{album.canciones}" style="width:100%">
+                                        <f:selectItems value ="#{album.canciones}" var="can" itemLabel="#{can.nombre}" itemValue="#{can}" />
+                                    </p:selectManyMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <!-- <p:column headerText="Canciones" >
+                             <p:commandLink value="Ver canciones" oncomplete="PF('canciones').show();" >
+                             </p:commandLink>
+                         </p:column>-->
+                        <p:column headerText="Editar">
+                            <p:rowEditor />
+                        </p:column> 
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

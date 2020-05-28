@@ -54,7 +54,7 @@ public class DbService implements Serializable {
     }
 
     public void llenar() {
-        this.ListaDb = new Db(service.getCanciones(), service.getUsuario(), service.getAlbun()); 
+        this.ListaDb = new Db(this.canciones, service.getUsuario(),this.album); 
         FileOutputStream fos;
         try {
             fos = new FileOutputStream("bd.txt");
@@ -79,8 +79,7 @@ public class DbService implements Serializable {
 
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(DbService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }        
     }
 
     public ArrayList<Cancion> getCanciones() {

@@ -35,21 +35,20 @@ public class AlbunService implements Serializable {
     @PostConstruct
     public void init() {
 
-        this.canciones = new ArrayList<>();
-        this.canciones.add(new Cancion(1, "coco", 3.15, "camilo", "mp3", 2.300));
-        this.canciones.add(new Cancion(2, "pepa", 4.15, "camilo", "mp2", 3.300));
-        this.canciones.add(new Cancion(3, "arroz", 6.15, "camilo", "mp4", 4.300));
-        this.canciones.add(new Cancion(4, "pollo", 3.45, "camilo", "mp3", 5.300));
-        this.canciones.add(new Cancion(5, "dada", 3.45, "camilo", "mp3", 5.300));
-        this.Albun.add(new Album(1, "primero", "antonela", 10.300, this.canciones));
-
-        this.canciones = new ArrayList<>();
-        this.canciones.add(new Cancion(6, "hola1", 3.15, "david", "mp3", 2.300));
-        this.canciones.add(new Cancion(7, "hola2", 4.15, "david", "mp2", 3.300));
-        this.canciones.add(new Cancion(8, "hola3", 6.15, "david", "mp4", 4.300));
-        this.canciones.add(new Cancion(9, "hola4", 3.45, "david", "mp3", 5.300));
-        this.Albun.add(new Album(2, "segundo", "antonia", 10.300, this.canciones));
-
+//        this.canciones = new ArrayList<>();
+//        this.canciones.add(new Cancion(1, "coco", 3.15, "camilo", "mp3", 2.300));
+//        this.canciones.add(new Cancion(2, "pepa", 4.15, "camilo", "mp2", 3.300));
+//        this.canciones.add(new Cancion(3, "arroz", 6.15, "camilo", "mp4", 4.300));
+//        this.canciones.add(new Cancion(4, "pollo", 3.45, "camilo", "mp3", 5.300));
+//        this.canciones.add(new Cancion(5, "dada", 3.45, "camilo", "mp3", 5.300));
+//        this.Albun.add(new Album(1, "primero", "antonela", 10.300, this.canciones));
+//
+//        this.canciones = new ArrayList<>();
+//        this.canciones.add(new Cancion(6, "hola1", 3.15, "david", "mp3", 2.300));
+//        this.canciones.add(new Cancion(7, "hola2", 4.15, "david", "mp2", 3.300));
+//        this.canciones.add(new Cancion(8, "hola3", 6.15, "david", "mp4", 4.300));
+//        this.canciones.add(new Cancion(9, "hola4", 3.45, "david", "mp3", 5.300));
+//        this.Albun.add(new Album(2, "segundo", "antonia", 10.300, this.canciones));
         this.usuario = new ArrayList<>();
         this.user = new Usuario();
         this.user.setNick("camilo");
