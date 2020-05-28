@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -45,6 +46,11 @@ public class CrearCancion implements Serializable {
         this.canciones = new ArrayList<>();
     }
 
+    @PostConstruct
+    public void init() {
+        this.canciones = this.dbService.getCanciones();
+    }
+
     public void agregarCancion() {
         this.canciones.add(new Cancion(getId(), getNombre(), getDuracion(), getFormato(), getPrecio(), getAlbum()));
         cancionService.setCanciones(this.canciones);
@@ -52,11 +58,6 @@ public class CrearCancion implements Serializable {
         this.dbService.llenar();
         FacesMessage message = new FacesMessage("¡Canción agregada correctamente! ");
         FacesContext.getCurrentInstance().addMessage(null, message);
-
-    }
-
-    public void agregarCancionAlbum(List<Album> alb) {
-        System.out.println(alb);
 
     }
 
@@ -72,6 +73,7 @@ public class CrearCancion implements Serializable {
 
     public void eliminarCancion(Cancion can) {
         this.canciones.remove(can);
+        this.dbService.setCanciones((ArrayList<Cancion>) this.canciones);
         FacesMessage message = new FacesMessage("Canción eliminada con exito");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
@@ -138,6 +140,22 @@ public class CrearCancion implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Album getAlbumes() {
+        return albumes;
+    }
+
+    public void setAlbumes(Album albumes) {
+        this.albumes = albumes;
+    }
+
+    public DbService getDbService() {
+        return dbService;
+    }
+
+    public void setDbService(DbService dbService) {
+        this.dbService = dbService;
     }
 
 }

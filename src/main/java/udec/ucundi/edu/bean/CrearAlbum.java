@@ -20,18 +20,30 @@ import udec.ucundi.edu.model.Cancion;
 import udec.ucundi.edu.service.DbService;
 
 /**
- *
- * @author user
+ * Clase para el control de creacion de albumes
+ * @author David Márquez
  */
 @Named(value = "crearAlbum")
 @ApplicationScoped
 public class CrearAlbum implements Serializable {
-
+/**
+ * Variable para controlar el servicio de DB
+ */
     @Inject
     DbService dbService;
+    /**
+     * Variable para controlar el servicio de cancion
+     */
     @Inject
     CancionService cancionService;
+    
+    /**
+     * Variable para almacenar el id del album
+     */
     private int id;
+    /**
+     * Variable para guardar las canciones agregadas 
+     */
     private ArrayList<Cancion> canciones;
     private ArrayList<Cancion> cancionesAgregadas;
     private ArrayList<Album> albumes;
@@ -44,6 +56,7 @@ public class CrearAlbum implements Serializable {
 
     public CrearAlbum() {
         this.cancionesAgregadas = new ArrayList<>();
+        this.albumes = new ArrayList<>();
     }
 
     @PostConstruct
@@ -54,7 +67,7 @@ public class CrearAlbum implements Serializable {
 
     public void agregarCancion(Cancion data) {
         this.cancionesAgregadas.add(data);
-        this.cancionService.getCanciones().remove(data);
+        this.dbService.getCanciones().remove(data);
 
     }
 
@@ -64,8 +77,13 @@ public class CrearAlbum implements Serializable {
             this.precio += cancione.getPrecio();
         }
         this.precio = precio - (precio * 0.1);
-        this.albumes.add(new Album(getId(), getNombre(), getArtista(), getPrecio(), getAñoLanzamiento(),this.cancionesAgregadas));
+        System.out.println(getId() + "-" + getNombre() + "-" + getArtista() + "-" + getPrecio() + "-" + getAñoLanzamiento());
+        this.albumes.add(new Album(getId(), getNombre(), getArtista(), getPrecio(), getAñoLanzamiento(), this.cancionesAgregadas));
         this.dbService.setAlbum(this.albumes);
+        for (Album cancione : this.dbService.getAlbum()) {
+            System.out.println("entra for");
+            System.out.println(cancione.getArtista());
+        }
         this.dbService.llenar();
 
         this.cancionesAgregadas = null;
@@ -162,4 +180,13 @@ public class CrearAlbum implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+    public DbService getDbService() {
+        return dbService;
+    }
+
+    public void setDbService(DbService dbService) {
+        this.dbService = dbService;
+    }
+
 }

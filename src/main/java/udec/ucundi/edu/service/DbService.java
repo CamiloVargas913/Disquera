@@ -57,7 +57,7 @@ public class DbService implements Serializable {
         this.ListaDb = new Db(this.canciones, service.getUsuario(),this.album); 
         FileOutputStream fos;
         try {
-            fos = new FileOutputStream("bd.txt");
+            fos = new FileOutputStream("C:\\Users\\user\\Documents\\VII semestre\\Linea de profundizacion I\\Disquera\\data.txt");
             ObjectOutputStream db = new ObjectOutputStream(fos);
             db.writeObject(this.ListaDb);
             db.flush();
@@ -70,7 +70,7 @@ public class DbService implements Serializable {
     public void leer() {
         FileInputStream fis;
         try {
-            fis = new FileInputStream("bd.txt");
+            fis = new FileInputStream("C:\\Users\\user\\Documents\\VII semestre\\Linea de profundizacion I\\Disquera\\data.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             this.ListaDb = (Db) ois.readObject();
             this.album = this.ListaDb.getAlbum();

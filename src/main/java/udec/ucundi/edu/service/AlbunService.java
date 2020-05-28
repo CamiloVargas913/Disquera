@@ -51,7 +51,7 @@ public class AlbunService implements Serializable {
 //        this.Albun.add(new Album(2, "segundo", "antonia", 10.300, this.canciones));
         this.usuario = new ArrayList<>();
         this.user = new Usuario();
-        this.user.setNick("camilo");
+        this.user.setNick("juan");
         this.user.setClave("camilo123");
         this.usuario.add(this.user);
 

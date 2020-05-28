@@ -55,7 +55,7 @@
                 <h:form id="table">
                     <p:panel id="agregarCan" header="Canciones registradas" style=" width: 90%; margin-left: auto; margin-right: auto">
 
-                        <p:dataTable id="tabla" value="#{crearCancion.cancionService.canciones}" var="cancion" editable="true" style=" width: 90%;margin-left: auto; margin-right: auto "
+                        <p:dataTable id="tabla" value="#{crearCancion.dbService.canciones}" var="cancion" editable="true" style=" width: 90%;margin-left: auto; margin-right: auto "
                                      paginator="true"         
                                      rows="5"
                                      rowsPerPageTemplate="5,10,15,100"

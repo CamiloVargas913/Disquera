@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -19,67 +20,111 @@ import org.primefaces.event.RowEditEvent;
 import udec.ucundi.edu.service.DbService;
 
 /**
+ * Clase para controlar el inicio del administrador
  *
- * @author user
+ * @author David Márquez
  */
 @Named(value = "admin")
-@SessionScoped
+@RequestScoped
 public class Admin implements Serializable {
 
+    /**
+     * Variable para controlar el servicio de la BD
+     */
     @Inject
     DbService dbService;
-
+    /**
+     * Lista para almacenar los albumes
+     */
     private List<Album> albumes;
+    /**
+     * Instancia del modelo album para poder acceder a sus metodos
+     */
     private Album album;
 
+    /**
+     * Constructor principal de la clase
+     */
     public Admin() {
-
+//        System.out.println("entra postconstruct");
     }
 
+    /**
+     * PostConstruct de la clase
+     */
     @PostConstruct
     public void init() {
+        System.out.println("entra postconstruct");
         dbService.leer();
         this.albumes = dbService.getAlbum();
+//        for (Album albume : dbService.getAlbum()) {
+//            System.out.println("artista:"+albume.getArtista());
+//        }
     }
 
+    /**
+     * Metodo para editar los datos de los albumes
+     *
+     * @param event evento de escucha al dar clic
+     */
     public void onRowEdit(RowEditEvent event) {
         FacesMessage message = new FacesMessage("Editó el album: ");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
+    /**
+     * Metodo para cancelar la edicion de los albumes
+     *
+     * @param event evento de escucha al dar clic
+     */
     public void onRowCancel(RowEditEvent event) {
         FacesMessage message = new FacesMessage("Canceló la edición");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public void redireccionCrearAlbum() throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/crearAlbum.xhtml");
-    }
-    
-    public void seleccionar(){
-        System.out.println("hola");
-    }
+    /*public void redireccionCrearAlbum() throws IOException {
+     FacesContext.getCurrentInstance().getExternalContext().redirect("faces/crearAlbum.xhtml");
+     }
 
-    public void redireccionCrearCancion() throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/crearCancion.xhtml");
-    }
+     public void redireccionCrearCancion() throws IOException {
+     FacesContext.getCurrentInstance().getExternalContext().redirect("faces/crearCancion.xhtml");
+     }
 
-    public void redireccionInicioAdmin() throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("admin.xhtml");
-    }
-
+     public void redireccionInicioAdmin() throws IOException {
+     FacesContext.getCurrentInstance().getExternalContext().redirect("admin.xhtml");
+     }*/
+    /**
+     * Metodo para obtener los albumes guardados
+     *
+     * @return List
+     */
     public List<Album> getAlbumes() {
         return albumes;
     }
 
+    /**
+     * Metodo para establecer el valor de los albumes
+     *
+     * @param albumes variable para guardar los albumes agregados
+     */
     public void setAlbumes(List<Album> albumes) {
         this.albumes = albumes;
     }
 
+    /**
+     * Metodo para obtener el valor de la instancia del album
+     *
+     * @return variable para el control del album
+     */
     public Album getAlbum() {
         return album;
     }
 
+    /**
+     * Metodo para establecer el valor de la instancia del album
+     *
+     * @param album variable para guardar el valor de la instancia de album
+     */
     public void setAlbum(Album album) {
         this.album = album;
     }

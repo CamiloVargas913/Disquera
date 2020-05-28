@@ -8,6 +8,7 @@ package udec.ucundi.edu.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -26,7 +27,7 @@ import udec.ucundi.edu.service.DbService;
  * @author PROFESIONAL
  */
 @Named(value = "index")
-@SessionScoped
+@RequestScoped
 public class Index implements Serializable {
 
     private ArrayList<Album> albunes;
@@ -39,13 +40,13 @@ public class Index implements Serializable {
     private CarritoService serviceCarrito;
 
     public Index() {
-
+        this.albunes = new ArrayList<>();
     }
 
     @PostConstruct
     public void init() {
-        this.serviceDb.llenar();
         this.serviceDb.leer();
+        this.serviceDb.llenar();
         this.albunes = serviceDb.getAlbum();
     }
 
