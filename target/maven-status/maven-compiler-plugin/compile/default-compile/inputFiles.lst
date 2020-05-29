@@ -1,14 +1,16 @@
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\service\AlbunService.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\bean\CrearAlbum.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\bean\Login.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\model\Db.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\service\CarritoService.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\service\DbService.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\model\Album.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\model\Cancion.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\service\CancionService.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\bean\Admin.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\model\Usuario.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\bean\CrearCancion.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\bean\Index.java
-C:\Users\user\Documents\VII semestre\Linea de profundizacion I\Disquera\src\main\java\udec\ucundi\edu\model\Carrito.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\bean\CrearCancion.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\service\CarritoService.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\bean\CrearAlbum.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\bean\ErrorHandler.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\model\Usuario.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\service\CancionService.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\service\AlbunService.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\bean\masterAdmin.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\model\Carrito.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\bean\Index.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\model\Db.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\model\Album.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\bean\Admin.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\bean\Login.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\model\Cancion.java
+E:\7 mo semestre\linea\Disquera\src\main\java\udec\ucundi\edu\service\DbService.java

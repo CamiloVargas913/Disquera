@@ -8,8 +8,6 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="resources/css/default.css"/>
-        <h:outputStylesheet name="resources/css/cssLayout.css"/>
         <title>Facelets Template</title>
          <style type="text/css">
             .backgroun-body{
@@ -37,13 +35,15 @@
 
         <div id="top" class="top">
             <ui:insert name="top">
+                
                 <h:form>
+                    ${masterAdmin.init()}
                     <p:menubar>
-                        <p:menuitem value="Inicio" icon="pi pi-home" action="#{admin.redireccionInicioAdmin()}" url="admin.xhtml"/>
-                        <p:menuitem value="Albumes" icon="pi pi-list" action="#{admin.redireccionCrearAlbum()}" url="crearAlbum.xhtml"/>
-                        <p:menuitem value="Canciones" icon="pi pi-volume-up" action="#{admin.redireccionCrearCancion()}" url="crearCancion.xhtml"/>
+                        <p:menuitem value="Inicio" icon="pi pi-home" action="#" url="admin.xhtml"/>
+                        <p:menuitem value="Albumes" icon="pi pi-list" action="#" url="crearAlbum.xhtml"/>
+                        <p:menuitem value="Canciones" icon="pi pi-volume-up" action="#" url="crearCancion.xhtml"/>
                         <f:facet name="options">
-                            <p:commandButton type="button" value="Logout" icon="pi pi-home" />
+                            <p:commandButton value="Salir" action="#{masterAdmin.cerrarSesion()}" update="@form"  icon="pi pi-home" />
                         </f:facet>
                     </p:menubar>
                 </h:form>

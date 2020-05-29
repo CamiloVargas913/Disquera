@@ -5,6 +5,7 @@
  */
 package udec.ucundi.edu.bean;
 
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import udec.ucundi.edu.service.CancionService;
 import udec.ucundi.edu.model.Album;
 import udec.ucundi.edu.model.Cancion;
 import org.primefaces.event.RowEditEvent;
+import udec.ucundi.edu.model.Usuario;
 import udec.ucundi.edu.service.DbService;
 
 /**
@@ -27,7 +29,7 @@ import udec.ucundi.edu.service.DbService;
  * @author David Márquez
  */
 @Named(value = "crearCancion")
-@SessionScoped
+@RequestScoped
 public class CrearCancion implements Serializable {
 
     /**
@@ -86,14 +88,27 @@ public class CrearCancion implements Serializable {
      */
     @PostConstruct
     public void init() {
-        this.canciones = this.dbService.getCanciones();
+        Usuario us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        if (us == null) {
+            redireccionarNoAutorizado();
+        } else {
+            this.canciones = this.dbService.getCanciones();
+        }
+    }
+
+    public void redireccionarNoAutorizado() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("401.xhtml");
+        } catch (IOException ex) {
+            //Logger.getLogger(CrearArtista.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
      * Metodo para agregar las canciones
      */
     public void agregarCancion() {
-        this.canciones.add(new Cancion(getId(), getNombre(), getDuracion(), getFormato(), getPrecio(), getAlbum()));
+        this.canciones.add(new Cancion(this.id, this.nombre, this.duracion, this.formato, this.precio, this.album));
         cancionService.setCanciones(this.canciones);
         this.dbService.setCanciones((ArrayList<Cancion>) canciones);
         this.dbService.llenar();

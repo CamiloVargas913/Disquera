@@ -5,6 +5,7 @@
  */
 package udec.ucundi.edu.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import javax.inject.Inject;
 import udec.ucundi.edu.service.CancionService;
 import udec.ucundi.edu.model.Album;
 import udec.ucundi.edu.model.Cancion;
+import udec.ucundi.edu.model.Usuario;
 import udec.ucundi.edu.service.DbService;
 
 /**
@@ -96,6 +98,14 @@ public class CrearAlbum implements Serializable {
      */
     @PostConstruct
     public void init() {
+        Usuario us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        if (us == null) {
+            redireccionarNoAutorizado();
+        } else {
+            this.dbService.leer();
+            this.albumes = this.dbService.getAlbum();
+        }
+
         this.canciones = dbService.getCanciones();
 
     }
@@ -105,6 +115,14 @@ public class CrearAlbum implements Serializable {
      *
      * @param data obtiene los datos de la cancion a agregar
      */
+    public void redireccionarNoAutorizado() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("401.xhtml");
+        } catch (IOException ex) {
+            //Logger.getLogger(CrearArtista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void agregarCancion(Cancion data) {
         this.cancionesAgregadas.add(data);
         this.dbService.getCanciones().remove(data);

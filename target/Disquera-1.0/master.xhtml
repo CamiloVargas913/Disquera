@@ -3,12 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="resources/css/default.css"/>
-        <h:outputStylesheet name="resources/css/cssLayout.css"/>
         <title>Disquera</title>
         <style type="text/css">
             .backgroun-body{
@@ -38,10 +37,13 @@
         <div id="top">
             <h:form id="form0">
                 <ui:insert name="top">
-                    <p:megaMenu orientation="horizontal" style="height: 60px; text-align: center;" id="carrito" >  
-                        <p:menuitem value="Disquera DC" url="faces/index.xhtml" icon="pi pi-spin pi-spinner" style="font-size: 25px"/>
+                    <p:growl id="messages"/>
+
+                    <p:menubar>
+                        <p:menuitem value="Disquera DC" url="faces/index.xhtml" icon="pi pi-spin pi-spinner" style="font-size: 25px"/>  
                         <p:menuitem value="Carrito" icon="pi pi-shopping-cart" url="faces/carrito.xhtml"/>
-                    </p:megaMenu> 
+                        <p:menuitem value="Iniciar Sesion" icon="pi pi-user" url="faces/login.xhtml"/>
+                    </p:menubar>
                 </ui:insert>
             </h:form>
         </div>

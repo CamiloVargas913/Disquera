@@ -27,33 +27,54 @@ import udec.ucundi.edu.service.DbService;
  * @author PROFESIONAL
  */
 @Named(value = "index")
-@RequestScoped
+@SessionScoped
 public class Index implements Serializable {
 
+    /**
+     * variable ´para almacenar la lista de los albumes
+     */
     private ArrayList<Album> albunes;
+    /**
+     * variable para almacenar el album selleccionado
+     */
     private Album albun;
+    /**
+     * variable para almacenar los productos agregados al carrito
+     */
     private Carrito carrito;
-
+    /**
+     * variable que es inyectada del Dbservice para leer los datos del archivo
+     */
     @Inject
     private DbService serviceDb;
+    /**
+     * variable que es inyectada del CarritoService para guardar los productos
+     * agregados
+     */
     @Inject
     private CarritoService serviceCarrito;
 
+    /**
+     * Constructor principal
+     */
     public Index() {
         this.albunes = new ArrayList<>();
     }
 
+    /**
+     * Constructor de la clase
+     */
     @PostConstruct
     public void init() {
         this.serviceDb.leer();
-        this.serviceDb.llenar();
         this.albunes = serviceDb.getAlbum();
     }
 
-    public void actualizar(RowEditEvent event) {
-        Cancion can = (Cancion) event.getObject();
-    }
-
+    /**
+     * Metodo para agregar el album al carrito de compras
+     *
+     * @param album almacena el albun seleccionado
+     */
     public void AgregarAlbum(Album album) {
         this.carrito = new Carrito();
         this.carrito.setNombre("Album: " + album.getNombre());
@@ -63,14 +84,21 @@ public class Index implements Serializable {
         this.carrito.setAlbum(album);
         this.serviceCarrito.Agregar(this.carrito);
 
-        FacesContext context = FacesContext.getCurrentInstance();
         if (this.serviceCarrito.Agregar(this.carrito)) {
-            context.addMessage(null, new FacesMessage("No se puede agregar", "Album: " + album.getNombre()));
-        } else {
+            FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("Agregado Correctamente", "Album: " + album.getNombre()));
+        } else {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se puede agregar Album: " + album.getNombre());
+            FacesContext.getCurrentInstance().addMessage(null, message);
+
         }
     }
 
+    /**
+     * Metodo para agregar la cancion al carrito de compras
+     *
+     * @param cancion almacena la cancion seleccionada
+     */
     public void AgregarCancion(Cancion cancion) {
         this.carrito = new Carrito();
         this.carrito.setNombre("Cancion: " + cancion.getNombre());
@@ -80,36 +108,73 @@ public class Index implements Serializable {
         this.carrito.setCancion(cancion);
         FacesContext context = FacesContext.getCurrentInstance();
         if (this.serviceCarrito.Agregar(this.carrito)) {
-            context.addMessage(null, new FacesMessage("No se puede agregar", "Cancion: " + cancion.getNombre()));
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se puede agregar Cancion: " + cancion.getNombre());
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } else {
             context.addMessage(null, new FacesMessage("Agregado Correctamente", "Cancion: " + cancion.getNombre()));
         }
     }
 
+    /**
+     * Elimina un producto agregado del carrito
+     *
+     * @param carrito almacena el producto a eliminar
+     */
     public void EliminarAgregados(Carrito carrito) {
         this.serviceCarrito.Eliminar(carrito);
     }
 
+    /**
+     * metodo para obtener el valor de carrito
+     *
+     * @return
+     */
     public CarritoService getServiceCarrito() {
         return serviceCarrito;
     }
 
+    /**
+     * metodo para almacenar el producto al carrito seleccionado
+     *
+     * @param serviceCarrito
+     */
     public void setServiceCarrito(CarritoService serviceCarrito) {
         this.serviceCarrito = serviceCarrito;
     }
 
+    /**
+     * *
+     * metodo para obtener los albumes
+     *
+     * @return
+     */
     public ArrayList<Album> getAlbunes() {
         return albunes;
     }
 
+    /**
+     * metodo para almacenar los albumes
+     *
+     * @param albunes
+     */
     public void setAlbunes(ArrayList<Album> albunes) {
         this.albunes = albunes;
     }
 
+    /**
+     * metodo para obtener el album
+     *
+     * @return
+     */
     public Album getAlbun() {
         return albun;
     }
 
+    /**
+     * metodo para almacenar un album
+     *
+     * @param albun
+     */
     public void setAlbun(Album albun) {
         this.albun = albun;
     }

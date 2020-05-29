@@ -2,6 +2,7 @@ udec\ucundi\edu\bean\Login.class
 udec\ucundi\edu\service\CancionService.class
 udec\ucundi\edu\service\DbService.class
 udec\ucundi\edu\service\AlbunService.class
+udec\ucundi\edu\bean\masterAdmin.class
 udec\ucundi\edu\model\Album.class
 udec\ucundi\edu\model\Db.class
 udec\ucundi\edu\bean\CrearAlbum.class
@@ -10,5 +11,6 @@ udec\ucundi\edu\bean\Index.class
 udec\ucundi\edu\bean\Admin.class
 udec\ucundi\edu\model\Usuario.class
 udec\ucundi\edu\service\CarritoService.class
+udec\ucundi\edu\bean\ErrorHandler.class
 udec\ucundi\edu\model\Cancion.class
 udec\ucundi\edu\model\Carrito.class

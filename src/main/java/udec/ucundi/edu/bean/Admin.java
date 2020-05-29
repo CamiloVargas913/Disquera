@@ -56,12 +56,25 @@ public class Admin implements Serializable {
      */
     @PostConstruct
     public void init() {
-        System.out.println("entra postconstruct");
-        dbService.leer();
-        this.albumes = dbService.getAlbum();
+        Usuario us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        if (us == null) {
+            redireccionarNoAutorizado();
+        } else {
+            dbService.leer();
+            this.albumes = dbService.getAlbum();
+        }
+
 //        for (Album albume : dbService.getAlbum()) {
 //            System.out.println("artista:"+albume.getArtista());
 //        }
+    }
+
+    public void redireccionarNoAutorizado() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("401.xhtml");
+        } catch (IOException ex) {
+            //Logger.getLogger(CrearArtista.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
