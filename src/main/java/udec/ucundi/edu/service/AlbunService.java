@@ -15,23 +15,44 @@ import udec.ucundi.edu.model.Cancion;
 import udec.ucundi.edu.model.Usuario;
 
 /**
- *
- * @author PROFESIONAL
+ * Clase para controlar los albumes
+ * @author David Márquez
  */
 @Named(value = "albunService")
 @SessionScoped
 public class AlbunService implements Serializable {
 
+    /**
+     * Variable para almacenar los albumes
+     */
     private ArrayList<Album> Albun;
+    /**
+     * Variable para almacenar las canciones del album
+     */
     private ArrayList<Cancion> canciones;
+    /**
+     * Variable para almacenar los usuarios de la plataforma
+     */
     private ArrayList<Usuario> usuario;
+    /**
+     * Variable para almacenar la instancia de usuario
+     */
     private Usuario user;
+    /**
+     * Variable para almacenar la instancia de album
+     */
     private Album Album;
 
+    /**
+     * Constructor principal de la clase
+     */
     public AlbunService() {
         this.Albun = new ArrayList<>();
     }
 
+    /**
+     * PostConstruct de la clase
+     */
     @PostConstruct
     public void init() {
 
@@ -57,26 +78,50 @@ public class AlbunService implements Serializable {
 
     }
 
+    /**
+     * Metodo para establecer el album
+     * @return Album
+     */
     public ArrayList<Album> getAlbun() {
         return Albun;
     }
 
+    /**
+     * Metodo para establecer el valor del albumn
+     * @param Albun almacena los datos de album
+     */
     public void setAlbun(ArrayList<Album> Albun) {
         this.Albun = Albun;
     }
 
+    /**
+     * Variable para obtener las canciones del album
+     * @return ArrayList
+     */
     public ArrayList<Cancion> getCanciones() {
         return canciones;
     }
 
+    /**
+     * Metodo para establecer el valor de las canciones del album
+     * @param canciones almacena el valor de las canciones
+     */
     public void setCanciones(ArrayList<Cancion> canciones) {
         this.canciones = canciones;
     }
 
+    /**
+     * Metodo para obtener los usuarios de la plataforma
+     * @return ArrayList
+     */
     public ArrayList<Usuario> getUsuario() {
         return usuario;
     }
 
+    /**
+     * Variable para establecer los usuarios de la plataforma
+     * @param usuario almacena los datos del usuario
+     */
     public void setUsuario(ArrayList<Usuario> usuario) {
         this.usuario = usuario;
     }

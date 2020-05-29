@@ -7,6 +7,7 @@ package udec.ucundi.edu.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -17,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import udec.ucundi.edu.model.Album;
 import org.primefaces.event.RowEditEvent;
+import udec.ucundi.edu.model.Cancion;
 import udec.ucundi.edu.service.DbService;
 
 /**
@@ -82,6 +84,20 @@ public class Admin implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
+    /**
+     * Metodo para eliminar un album de la lista
+     *
+     * @param alb parametro de tipo album para identificar lo que se debe
+     * eliminar
+     */
+    public void eliminarAlbum(Album alb) {
+        this.albumes.remove(alb);
+        this.dbService.setAlbum((ArrayList<Album>) this.albumes);
+        this.dbService.llenar();
+        FacesMessage message = new FacesMessage("Album eliminado con exito");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
     /*public void redireccionCrearAlbum() throws IOException {
      FacesContext.getCurrentInstance().getExternalContext().redirect("faces/crearAlbum.xhtml");
      }
@@ -127,6 +143,24 @@ public class Admin implements Serializable {
      */
     public void setAlbum(Album album) {
         this.album = album;
+    }
+
+    /**
+     * Metodo para obtener los valos del servicio de DB
+     *
+     * @return objeto para obtener los valores de DB
+     */
+    public DbService getDbService() {
+        return dbService;
+    }
+
+    /**
+     * Metodo para establecer el valor del servicio de db
+     *
+     * @param dbService objeto de db
+     */
+    public void setDbService(DbService dbService) {
+        this.dbService = dbService;
     }
 
 }

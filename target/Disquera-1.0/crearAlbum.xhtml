@@ -72,7 +72,7 @@
                             <h:outputText value="#{data.precio}" />
                         </p:column>
                         <p:column headerText="Agregar">
-                            <p:commandButton value="Agregar canción" ajax="false" update="formCancion" action="#{crearAlbum.agregarCancion(data)}"/>
+                            <p:commandButton value="Agregar canción" ajax="true" update="formCancion, formRegistrar" action="#{crearAlbum.agregarCancion(data)}"/>
                         </p:column>
 
                     </p:dataTable>

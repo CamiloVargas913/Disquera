@@ -21,9 +21,6 @@
                                  currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
                         <f:facet  name ="header">
                             Albumes registrados.
-                            <div align="right">
-                                <p:commandButton id="crearAlbum" value="Crear album" action="#{admin.redireccionCrearAlbum()}"/>
-                            </div>
                         </f:facet>
                         <p:ajax event="rowEdit" listener="#{admin.onRowEdit(event)}" update=":form:msgs" />
                         <p:ajax event="rowEditCancel" listener="#{admin.onRowCancel(event)}" update=":form:msgs" />
@@ -72,6 +69,9 @@
                          </p:column>-->
                         <p:column headerText="Editar">
                             <p:rowEditor />
+                        </p:column> 
+                        <p:column headerText="Eliminar">
+                            <p:commandButton value="Eliminar" ajax="true" update="form" action="#{admin.eliminarAlbum(album)}"/>
                         </p:column> 
                     </p:dataTable>
                 </h:form>

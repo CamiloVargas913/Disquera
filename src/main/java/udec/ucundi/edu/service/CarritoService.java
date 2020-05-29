@@ -15,27 +15,49 @@ import udec.ucundi.edu.model.Cancion;
 import udec.ucundi.edu.model.Carrito;
 
 /**
+ * Clase para el control de carrito
  *
- * @author PROFESIONAL
+ * @author Camilo Vargas
  */
 @Named(value = "carritoService")
 @SessionScoped
 public class CarritoService implements Serializable {
 
+    /**
+     * Variable para almacenar los datos de compra
+     */
     private ArrayList<Carrito> carrito;
+    /**
+     * Variable para controlar los datos de carro
+     */
     private Carrito carritoAux;
+    /**
+     * Variable para controlar el estado del carro de compra
+     */
     private boolean bandera;
 
+    /**
+     * Constructor principal de la clase
+     */
     public CarritoService() {
 
     }
 
+    /**
+     * Postconstruct de la clase
+     */
     @PostConstruct
     public void Init() {
         this.carrito = new ArrayList<>();
         this.bandera = true;
     }
 
+    /**
+     * Metodo para agregar los datos al carro de compra
+     *
+     * @param carr Almacena el valor de los datos agregados al carro de compra
+     * @return boolean
+     */
     public boolean Agregar(Carrito carr) {
         if (this.carrito.size() > 0) {
             for (Carrito carrito1 : carrito) {
@@ -63,7 +85,7 @@ public class CarritoService implements Serializable {
                             this.bandera = true;
                         }
 
-                    }else{
+                    } else {
                         this.bandera = false;
                     }
                 }
@@ -75,11 +97,18 @@ public class CarritoService implements Serializable {
             }
         } else {
             this.carrito.add(carr);
-            this.bandera=false;
+            this.bandera = false;
         }
         return this.bandera;
     }
 
+    /**
+     * Metodo para validar los datos agregados al carro de compra
+     *
+     * @param album almacena los datos de los albumes
+     * @param carr almacena los datos del carro de compra
+     * @return boolean
+     */
     public boolean validar(Album album, Carrito carr) {
         boolean validacion = false;
         System.out.println("*************************************************************");
@@ -96,14 +125,29 @@ public class CarritoService implements Serializable {
         return validacion;
     }
 
+    /**
+     * Metodo para eliminar los datos del carro de compra
+     *
+     * @param carrito almacena los datos del carro de compra para eliminar
+     */
     public void Eliminar(Carrito carrito) {
         this.carrito.remove(carrito);
     }
 
+    /**
+     * Metodo para obtener los datos del carro de compra
+     *
+     * @return ArrayList
+     */
     public ArrayList getCarrito() {
         return carrito;
     }
 
+    /**
+     * Metodo para establecer los datos del carro de compra
+     *
+     * @param carrito almacena los datos del carro de compra
+     */
     public void setCarrito(ArrayList carrito) {
         this.carrito = carrito;
     }
