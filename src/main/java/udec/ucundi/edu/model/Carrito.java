@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author PROFESIONAL
+ * @author Camilo
  */
 public class Carrito implements Serializable {
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author PROFESIONAL
+ * @author Camilo
  */
 public class Album implements Serializable {
 

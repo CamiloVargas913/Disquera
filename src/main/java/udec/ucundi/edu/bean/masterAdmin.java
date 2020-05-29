@@ -16,7 +16,7 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author PROFESIONAL
+ * @author Camilo
  */
 @Named(value = "masterAdmin")
 @RequestScoped

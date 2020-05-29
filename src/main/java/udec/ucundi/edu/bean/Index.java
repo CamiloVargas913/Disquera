@@ -24,7 +24,7 @@ import udec.ucundi.edu.service.DbService;
 
 /**
  *
- * @author PROFESIONAL
+ * @author Camilo
  */
 @Named(value = "index")
 @SessionScoped

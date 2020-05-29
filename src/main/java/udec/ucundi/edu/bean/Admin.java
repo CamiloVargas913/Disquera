@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import udec.ucundi.edu.model.Album;
 import org.primefaces.event.RowEditEvent;
 import udec.ucundi.edu.model.Cancion;
+import udec.ucundi.edu.model.Usuario;
 import udec.ucundi.edu.service.DbService;
 
 /**

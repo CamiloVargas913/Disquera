@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author ASUS-PC
+ * @author Camilo
  */
 @Named(value = "errorHandler")
 @RequestScoped

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author user
+ * @author Camilo
  */
 public class Cancion implements Serializable {
 

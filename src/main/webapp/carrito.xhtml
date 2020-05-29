@@ -22,6 +22,9 @@
                             <p:commandButton value="Eliminar Compra" ajax="true" update="table" action="#{index.EliminarAgregados(data)}" icon="pi pi-times" />
                         </p:column>
                     </p:dataTable> 
+                    <div style="margin-left: auto; margin-right: auto; width: 80%;">
+                        <p:commandButton value="Confirmar Compra" ajax="true" update="form" action="#{carrito.confirmarCompra()}" icon="pi pi-shopping-cart" /> 
+                    </div>        
                 </h:form>
             </ui:define>
 
